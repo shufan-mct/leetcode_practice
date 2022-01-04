@@ -27,9 +27,3 @@ class Solution:
             maxTotal = max(maxTotal, maxDays[week + 1][city])
             
         return maxTotal
-                
-        maxTotal = 0
-        for city in range(n):
-            maxTotal = max(maxTotal, maxDays[city][k])
-            
-        return maxTotal
