@@ -35,16 +35,16 @@ class Codec:
         string = data.split('.')
         root = TreeNode(int(string[0]))        
         q = Queue()
-        par = root
-        for i in range(1, len(string) - 1):
+        q.put(root)
+        for i in range(1, len(string)):            
             if string[i] == 'N':
                 child = None
             else:
                 child = TreeNode(int(string[i]))
                 q.put(child)
             if i % 2:
+                par = q.get()
                 par.left = child
             else:
                 par.right = child
-                par = q.get()
         return root
