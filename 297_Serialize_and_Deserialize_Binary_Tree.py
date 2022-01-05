@@ -1,6 +1,9 @@
+# Both BFS and DFS solutions included. 
+# Their classes are named differently to disguish. 
+
 from queue import Queue
 
-class Codec:
+class CodecBFS:
     
     def serialize(self, root):
         """Encodes a tree to a single string.
@@ -48,3 +51,40 @@ class Codec:
             else:
                 par.right = child
         return root
+
+class CodecDFS:
+    
+    def serialize(self, root):
+        """Encodes a tree to a single string.
+        
+        :type root: TreeNode
+        :rtype: str
+        """
+        string = []
+        self.preOrder(string, root)
+        return '.'.join(string)
+        
+    def preOrder(self, string, root):
+        if not root:
+            string.append('N')
+            return
+        string.append(str(root.val))
+        self.preOrder(string, root.left)
+        self.preOrder(string, root.right)
+
+    def deserialize(self, data):
+        """Decodes your encoded data to tree.
+        
+        :type data: str
+        :rtype: TreeNode
+        """
+        string = data.split('.')
+        return self.buildTree(string, 0)[0]
+        
+    def buildTree(self, string, start):
+        if string[start] == 'N':
+            return (None, start)
+        root = TreeNode(int(string[start]))
+        root.left, leftEnd = self.buildTree(string, start + 1)
+        root.right, rightEnd = self.buildTree(string, leftEnd + 1)
+        return (root, rightEnd)
