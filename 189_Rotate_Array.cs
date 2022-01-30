@@ -1,4 +1,4 @@
-public class Solution {
+public class Solution {  
     public void Rotate(int[] nums, int k) {
         int n = nums.Length;
         k %= n;
